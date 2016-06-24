@@ -7,7 +7,6 @@ arch=amd64
 
 acbuildend () {
     export EXIT=$?;
-    rm -f inspector
     acbuild --debug end && exit $EXIT;
 }
 
@@ -19,7 +18,7 @@ GOARCH="${arch}"
 
 CGO_ENABLED=0 go build
 
-acbuild set-name s-urbaniak.github.io/rkt8s-workshop/image/inspector
+acbuild set-name s-urbaniak.github.io/rkt8s-workshop/inspector
 acbuild copy inspector /inspector
 acbuild copy css /css
 acbuild set-exec /inspector
