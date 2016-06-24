@@ -42,5 +42,5 @@ func main() {
 	http.Handle("/healthz", NewRequestLoggerHandler(new(healthzHandler)))
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("css"))))
 	log.Println("Starting inspector...")
-	log.Fatal(http.ListenAndServe(":80", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
