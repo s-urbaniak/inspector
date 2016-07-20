@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+name=inspector
 os=linux
-version=0.0.1
+version=0.0.2
 arch=amd64
 
 acbuildend () {
@@ -18,19 +19,19 @@ GOARCH="${arch}"
 
 CGO_ENABLED=0 go build
 
-acbuild set-name s-urbaniak.github.io/rkt8s-workshop/inspector
-acbuild copy inspector /inspector
+acbuild set-name s-urbaniak.github.io/images/inspector
+acbuild copy "${name}" /"${name}"
 acbuild copy css /css
-acbuild set-exec /inspector
+acbuild set-exec /"${name}"
 acbuild port add www tcp 8080
 acbuild label add version "${version}"
 acbuild label add arch "${arch}"
 acbuild label add os "${os}"
 acbuild annotation add authors "Sergiusz Urbaniak <sergiusz.urbaniak@gmail.com>"
-acbuild write --overwrite inspector-"${version}"-"${os}"-"${arch}".aci
+acbuild write --overwrite "${name}"-"${version}"-"${os}"-"${arch}".aci
 
 gpg --yes --batch \
     -u sergiusz.urbaniak@gmail.com \
     --armor \
-    --output inspector-0.0.1-linux-amd64.aci.asc \
-    --detach-sign inspector-0.0.1-linux-amd64.aci
+    --output inspector-"${version}"-"${os}"-"${arch}".aci.asc \
+    --detach-sign "${name}"-"${version}"-"${os}"-"${arch}".aci
